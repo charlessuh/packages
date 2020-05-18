@@ -41,6 +41,7 @@ UB_B_NTP_BOOT=1
 UB_B_QUERY_MIN=0
 UB_B_QRY_MINST=0
 UB_B_SLAAC6_MAC=0
+UB_B_QUERY_LOCAL=0
 
 UB_D_CONTROL=0
 UB_D_DOMAIN_TYPE=static
@@ -592,6 +593,9 @@ unbound_zone() {
                 ;;
             esac
 
+            if [ "$( local_subnet $server )" = "ok" ]; then
+                dns_ast=1
+	    fi
           else
             case $server in
               127.*|::0*)
